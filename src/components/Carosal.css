@@ -1,0 +1,57 @@
+.carosal__div{
+    width: 80vw;
+    height: 60vh;
+    /* border: 2px solid red; */
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.previous__arrow{
+    width: 25%;
+    /* border: 2px solid blue; */
+}
+
+.movie__poster{
+    width: 50%;
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: center;
+}
+
+.next__arrow{
+    width: 25%;
+    /* border: 2px solid yellow; */
+}
+
+.current__movie__poster{
+    object-fit: contain;
+    /* height: 30%; */
+    width: 40%;
+    transition: all 1s;
+}
+
+.next__arrow,
+.previous__arrow
+{
+    transition: all 1s;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.current__movie__poster:hover{
+    transform: scale(1.06);
+}
+
+.previous__arrow:hover{
+    transform: scale(1.06);
+    /* opacity: 0.5; */
+    opacity: 1;
+}
+
+.next__arrow:hover{
+    transform: scale(1.06);
+    /* opacity: 0.5; */
+    opacity: 1;
+}
