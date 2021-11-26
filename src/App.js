@@ -4,6 +4,7 @@ import requests from './request';
 import MODAL from './components/Modal';
 import Background from './components/Background';
 import Carosal from './components/Carosal';
+import Navbar from './components/Navbar';
 
 function App() {  
   const [modalParameters, setModalParameters] = useState({
@@ -11,9 +12,20 @@ function App() {
     movieObject : {},
   })
 
+  const [showAsRowCol, updateState] = useState(true);
+  
+  window.addEventListener('resize', ()=>{
+    console.log(window.innerWidth);
+    if (window.innerWidth === '650'){
+      updateState(false);
+    }
+  })
+
   return (
     <div className="App">
+      <Navbar/>
       <Carosal title = "Trending Now" fetchUrl = {requests.fetchTrendingNow} modalShowNoShow = {setModalParameters}/>
+      <ROW title = "Trending Now" fetchUrl = {requests.fetchTrendingNow} modalShowNoShow = {setModalParameters}/>
       <ROW title = "Top Rated Movies" fetchUrl = {requests.fetchTopRated} modalShowNoShow = {setModalParameters}/>
       <ROW title = "Action Movies" fetchUrl = {requests.fetchActionMovies} modalShowNoShow = {setModalParameters}></ROW>
       <ROW title = "Comedy Movies" fetchUrl={requests.fetchComedyMovies} modalShowNoShow = {setModalParameters}></ROW>

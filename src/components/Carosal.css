@@ -1,57 +1,64 @@
 .carosal__div{
-    width: 80vw;
-    height: 60vh;
-    /* border: 2px solid red; */
-    margin: 1rem auto;
+    margin-top: 2rem;
     display: flex;
-    justify-content: center;
     align-items: center;
-}
-
-.previous__arrow{
-    width: 25%;
-    /* border: 2px solid blue; */
+    justify-content: space-around;
 }
 
 .movie__poster{
-    width: 50%;
-    /* border: 2px solid green; */
     display: flex;
     justify-content: center;
 }
 
-.next__arrow{
-    width: 25%;
-    /* border: 2px solid yellow; */
-}
-
 .current__movie__poster{
-    object-fit: contain;
-    /* height: 30%; */
-    width: 40%;
-    transition: all 1s;
+    min-width: 0;
+    width: 100%;
 }
 
-.next__arrow,
-.previous__arrow
-{
-    transition: all 1s;
-    cursor: pointer;
+.previous__arrow,
+.next__arrow{
+    height: 200px;
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 1rem;
     opacity: 0.5;
+    flex-shrink: 1;
+    cursor: pointer;
+    transition: all 0.5s;
 }
 
-.current__movie__poster:hover{
-    transform: scale(1.06);
+.previous__arrow img,
+.next__arrow img{
+    width: 70%;
+    /* object-fit: contain; */
 }
 
-.previous__arrow:hover{
-    transform: scale(1.06);
-    /* opacity: 0.5; */
-    opacity: 1;
-}
-
+.previous__arrow:hover,
 .next__arrow:hover{
-    transform: scale(1.06);
-    /* opacity: 0.5; */
     opacity: 1;
+    transform: scale(1.06);
+}
+
+@media screen and (max-width: 900px){
+    .carosal__div{
+        flex-direction: column;
+    }
+
+    .current__movie__poster{
+        width: 80%;
+    }
+
+    .previous__arrow,
+    .next__arrow{
+        height: 150px;
+    }
+
+}
+
+@media screen and (max-width:680px){
+    .carosal__div{
+        display: none;
+    }
 }
