@@ -1,33 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 import axios from "../axios";
 import "./Row.css";
 
-function ROW(props) {
+const ROW  = (props, ref) => {
   const [movies, setMovies] = useState([]);
-  const { title, fetchUrl, modalShowNoShow} = props;
+  const { title, fetchUrl, showBackground} = props;
   const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500/";
 
   // event-listener responsible for handling poster click
   const posterClickHandler = function (e) {
-    const movieIdElement = e.target.parentElement.lastChild;
-    const movieId = movieIdElement.textContent;
-
-    //disable scrolling
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    window.onscroll = function(){
-      window.scrollTo(0, scrollTop);
-    }
-
-    // this represents the movie object which is clicked
-    const movieObject = movies.filter((movie) => {
-      return movie.id.toString() === movieId;
-    });
-
     // make modal and background visible
-    modalShowNoShow({
-      makeVisible : true,
-      movieObject : movieObject['0'],
-    })
+    showBackground(true);
   };
 
   // A snippet of code which runs on specific condition/variable
@@ -44,7 +27,7 @@ function ROW(props) {
 
 
   return (
-    <div className="row">
+    <div className="row" ref = {ref}>
       <div><h1>{title}</h1></div>
       <div className="row__posters">
         {/* adding movies of a particular genere/category in a row */}
@@ -70,4 +53,4 @@ function ROW(props) {
   );
 }
 
-export default ROW;
+export default forwardRef(ROW);
