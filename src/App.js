@@ -1,41 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ROW from './components/Row';
 import requests from './request';
-import MODAL from './components/Modal';
 import Background from './components/Background';
 import Carosal from './components/Carosal';
 import Navbar from './components/Navbar';
 
 function App() {  
-  const [modalParameters, setModalParameters] = useState({
-    makeVisible : false,
-    movieObject : {},
-  })
-
-  const [showAsRowCol, updateState] = useState(true);
-  
-  window.addEventListener('resize', ()=>{
-    console.log(window.innerWidth);
-    if (window.innerWidth === '650'){
-      updateState(false);
-    }
-  })
+  const [isBackgroundVisible, setBackground] = useState(false);
+  const RowsReferenceKeys = {
+    'Trending' : useRef(null),
+    'Top Rated' : useRef(null),
+    'Action' : useRef(null),
+    'Comedy': useRef(null),
+    'Horror' : useRef(null),
+    'Romantic' : useRef(null),
+  }
 
   return (
     <div className="App">
-      <Navbar/>
-      <Carosal title = "Trending Now" fetchUrl = {requests.fetchTrendingNow} modalShowNoShow = {setModalParameters}/>
-      <ROW title = "Trending Now" fetchUrl = {requests.fetchTrendingNow} modalShowNoShow = {setModalParameters}/>
-      <ROW title = "Top Rated Movies" fetchUrl = {requests.fetchTopRated} modalShowNoShow = {setModalParameters}/>
-      <ROW title = "Action Movies" fetchUrl = {requests.fetchActionMovies} modalShowNoShow = {setModalParameters}></ROW>
-      <ROW title = "Comedy Movies" fetchUrl={requests.fetchComedyMovies} modalShowNoShow = {setModalParameters}></ROW>
-      <ROW title = "Horror Movies" fetchUrl ={requests.fetchHorrorMovies} modalShowNoShow = {setModalParameters}></ROW>
-      <ROW title = "Romantic Movies" fetchUrl ={requests.fetchRomanceMovies} modalShowNoShow = {setModalParameters}></ROW>
-      <ROW title = "Documentries" fetchUrl ={requests.fetchDocumentries} modalShowNoShow = {setModalParameters}></ROW>
+      <Navbar refkeys = {RowsReferenceKeys} />
+      <Carosal/>
+      <ROW title = "Trending Now" fetchUrl = {requests.fetchTrendingNow} showBackground = {setBackground} ref ={RowsReferenceKeys.Trending}/>
+      <ROW title = "Top Rated Movies" fetchUrl = {requests.fetchTopRated} showBackground = {setBackground} ref ={RowsReferenceKeys['Top Rated']}/>
+      <ROW title = "Action Movies" fetchUrl = {requests.fetchActionMovies} showBackground = {setBackground} ref ={RowsReferenceKeys.Action}></ROW>
+      <ROW title = "Comedy Movies" fetchUrl={requests.fetchComedyMovies} showBackground = {setBackground} ref ={RowsReferenceKeys.Comedy}></ROW>
+      <ROW title = "Horror Movies" fetchUrl ={requests.fetchHorrorMovies} showBackground = {setBackground} ref ={RowsReferenceKeys.Horror}></ROW>
+      <ROW title = "Romantic Movies" fetchUrl ={requests.fetchRomanceMovies} showBackground = {setBackground} ref ={RowsReferenceKeys.Romantic}></ROW>
+      <ROW title = "Documentries" fetchUrl ={requests.fetchDocumentries} showBackground = {setBackground}></ROW>
       
       {/* Conditional Rendering based on makeVisible variable which is reset in Row component */}
-      {modalParameters.makeVisible ? <MODAL movieObject = {modalParameters.movieObject}></MODAL> : <></> }
-      {modalParameters.makeVisible ? <Background ></Background> : <></> }
+      {isBackgroundVisible ? <Background ></Background> : <></> }
     </div>
   );
 }
